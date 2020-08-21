@@ -14,6 +14,7 @@ import Jobs from './components/jobs'
 import LoginForm from './components/loginForm'
 import Notification from './components/notification'
 import JobForm from './components/jobForm'
+import JobFormEdit from './components/jobFormEdit'
 import Job from './components/job'
 
 import loginService from './services/login' 
@@ -24,11 +25,13 @@ function App() {
   const [user, setUser] = useState(null)
   const [email, setEmail] = useState('') 
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(true)
+  const [userLoading, setLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
   const [jobFormVisible, setJobFormVisible] = useState(false)
+  const [jobButtonLabel, setJobButtonLabel] = useState('New job')
+  const [editJobButtonLabel, setEditJobButtonLabel] = useState('Edit')
+  const [editJobStatus, setEditJobStatus] = useState(false)
   const history = useHistory()
-  const jobFormRef = React.createRef()
 
   useEffect(() => {
     jobService
@@ -44,8 +47,8 @@ function App() {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       jobService.setToken(user.token)
-      setLoading(false)
     }
+    setLoading(false)
   }, [])
 
   const handleLogin = async (event) => {
@@ -74,6 +77,11 @@ function App() {
 
   const toggleJobForm = () => {
     setJobFormVisible(!jobFormVisible)
+    if (jobButtonLabel === 'New job') {
+      setJobButtonLabel('Cancel')
+    } else {
+      setJobButtonLabel('New job')
+    }
   }
 
   const goBack = () => {
@@ -82,11 +90,18 @@ function App() {
 
   const createJob = (jobObject) => {
     setJobFormVisible(false)
+    setJobButtonLabel('New job')
     jobService
       .create(jobObject)
       .then(returnedJob => {
         setJobs(jobs.concat(returnedJob))
       })
+  }
+
+  const editJob = () => {
+    setEditJobButtonLabel(null)
+    setEditJobStatus(true)
+    console.log('edit job')
   }
 
   const match = useRouteMatch('/jobs/:id')
@@ -95,10 +110,8 @@ function App() {
   ? jobs.find(job => job.id === match.params.id)
   : null
 
-  console.log(user)
-
-  if (loading) return null
-
+  console.log('render')
+  
   return (
     <Switch>
       <Route path="/login">
@@ -112,23 +125,35 @@ function App() {
         />
       </Route>
       <Route path="/jobs/:id">
-        <Layout pageTitle="Job details" buttonText="Back" buttonAction={goBack}>
+        <Layout 
+          pageTitle="Job details" 
+          primaryButtonLabel="Back" 
+          primaryButtonAction={goBack}
+          secondaryButtonLabel={editJobButtonLabel}
+          secondaryButtonAction={editJob}
+        >
           <Notification message={errorMessage}/>
-          <Job job={job}/>
+            {!editJobStatus && <Job job={job}/>}
+            
+            {editJobStatus && <JobFormEdit job={job}/>}
         </Layout>
       </Route>
       <Route path="/">
         {user ?
-        <Layout pageTitle="Jobs" buttonText="New job" buttonAction={toggleJobForm}>
+        <Layout 
+          pageTitle="Jobs" 
+          primaryButtonLabel={jobButtonLabel} 
+          primaryButtonAction={toggleJobForm}
+        >
           <Notification message={errorMessage}/>
           <div className="sm:px-6 lg:px-8">
             {jobFormVisible ?
-              <JobForm createJob={createJob} ref={jobFormRef}/>
+              <JobForm createJob={createJob}/>
             : ''}
           </div>
           <Jobs jobs={jobs}/>
         </Layout>
-        : <Redirect to="/login"/>}
+        : !userLoading ? <Redirect to="/login"/> : null}
       </Route>
     </Switch>
 
