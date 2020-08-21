@@ -10,6 +10,8 @@ const JobFormEdit = ({ updateJob, job, setEditJobStatus }) => {
   const [quote, setQuote] = useState(job.quote)
   const [password, setPassword] = useState(job.password)
   const [description, setDescription] = useState(job.description)
+  const [status, setStatus] = useState(job.status)
+  const [date] = useState(job.date)
 
   const editJobSubmit = (event) => {
     event.preventDefault()
@@ -22,7 +24,9 @@ const JobFormEdit = ({ updateJob, job, setEditJobStatus }) => {
       model,
       quote,
       password,
-      description
+      description,
+      status,
+      date
     }
     updateJob(job.id, jobObject)
     setEditJobStatus(false)
@@ -143,17 +147,6 @@ const JobFormEdit = ({ updateJob, job, setEditJobStatus }) => {
           </div>
 
           <div className="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label htmlFor="quote" className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
-              Quote
-            </label>
-            <div className="mt-1 sm:mt-0 sm:col-span-2">
-              <div className="max-w-lg rounded-md shadow-sm sm:max-w-xs">
-                <input value={quote} onChange={({target}) => setQuote(target.value)} id="quote" className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
             <label htmlFor="password" className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
               Password
             </label>
@@ -219,6 +212,40 @@ const JobFormEdit = ({ updateJob, job, setEditJobStatus }) => {
               </div>
             </div>
           </div> */}
+        </div>
+        <div>
+          <h3 className="text-lg leading-6 font-medium text-gray-900 pt-8 sm:mt-5 sm:pt-10">
+            Job Information
+          </h3>
+        </div>
+        <div className="mt-6 sm:mt-5">
+
+          <div class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <label for="status" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
+            Status
+          </label>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <div class="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+              <select id="status" value={status} onChange={({target}) => setStatus(target.value)} class="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                <option value="New job">New job</option>
+                <option value="In progress">In progress</option>
+                <option value="Awaiting parts">Awaiting parts</option>
+                <option value="Ready for collection">Ready for collection</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+          <div className="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <label htmlFor="quote" className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
+              Quote
+            </label>
+            <div className="mt-1 sm:mt-0 sm:col-span-2">
+              <div className="max-w-lg rounded-md shadow-sm sm:max-w-xs">
+                <input value={quote} onChange={({target}) => setQuote(target.value)} id="quote" className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+              </div>
+            </div>
+          </div>
         </div>
         {/* <div className="mt-8 border-t border-gray-200 pt-8 sm:mt-5 sm:pt-10">
           <div>
