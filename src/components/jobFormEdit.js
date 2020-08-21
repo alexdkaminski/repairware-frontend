@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
-const JobForm = ({ editJob, job }) => {
+const JobFormEdit = ({ updateJob, job, setEditJobStatus }) => {
+  const [id] = useState(job.id)
   const [name, setName] = useState(job.name)
   const [phone, setPhone] = useState(job.phone)
   const [email, setEmail] = useState(job.email)
@@ -10,9 +11,10 @@ const JobForm = ({ editJob, job }) => {
   const [password, setPassword] = useState(job.password)
   const [description, setDescription] = useState(job.description)
 
-  const addJob = (event) => {
+  const editJobSubmit = (event) => {
     event.preventDefault()
-    editJob({
+    const jobObject = {
+      id,
       name,
       phone,
       email,
@@ -21,11 +23,13 @@ const JobForm = ({ editJob, job }) => {
       quote,
       password,
       description
-    })
+    }
+    updateJob(job.id, jobObject)
+    setEditJobStatus(false)
   }
 
   return (
-    <form onSubmit={addJob}>
+    <form onSubmit={editJobSubmit}>
       <div>
         <div>
           <h3 className="text-lg leading-6 font-medium text-gray-900">
@@ -329,4 +333,4 @@ const JobForm = ({ editJob, job }) => {
   )
 }
 
-export default JobForm
+export default JobFormEdit

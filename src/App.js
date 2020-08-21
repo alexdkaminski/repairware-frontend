@@ -98,9 +98,29 @@ function App() {
       })
   }
 
-  const editJob = () => {
+  const updateJob = async (id, jobObject) => {
+    try {
+      const returnedJob = await jobService.update(id, jobObject)
+      returnedJob.user = user
+      console.log('returnedJob: ',returnedJob)
+      let updatedJobs = jobs.map(job => job.id !== id ? job : returnedJob)
+      setJobs(updatedJobs)
+    } catch (error) {
+      setErrorMessage(
+        `Job '${jobObject.title}' was already removed from server`
+      )
+      console.log(error)
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+  }
+
+  const editJob = (id, jobObject) => {
     setEditJobButtonLabel(null)
     setEditJobStatus(true)
+    console.log(id)
+    console.log(jobObject)
     console.log('edit job')
   }
 
@@ -109,8 +129,6 @@ function App() {
   const job = match
   ? jobs.find(job => job.id === match.params.id)
   : null
-
-  console.log('render')
   
   return (
     <Switch>
@@ -135,7 +153,7 @@ function App() {
           <Notification message={errorMessage}/>
             {!editJobStatus && <Job job={job}/>}
             
-            {editJobStatus && <JobFormEdit job={job}/>}
+            {editJobStatus && <JobFormEdit job={job} updateJob={updateJob} setEditJobStatus={setEditJobStatus}/>}
         </Layout>
       </Route>
       <Route path="/">
