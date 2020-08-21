@@ -24,7 +24,7 @@ const Activity = ({ job }) => {
         ${job.quote} 
       </td>
       <td className="hidden px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-500 md:block">
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 capitalize ${statusColor(job.status)}`}>
+        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 capitalize bg-${statusColor(job.status)}-100 text-${statusColor(job.status)}-800`}>
           {job.status}
         </span>
       </td>

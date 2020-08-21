@@ -2,16 +2,16 @@ const statusColor = (status) => {
   let color;
   switch (status) {
     case "New job":
-      color = "bg-purple-100 text-purple-800"
+      color = "purple"
       break;
     case "In progress":
-      color = "bg-blue-100 text-blue-800"
+      color = "blue"
       break;
     case "Awaiting parts":
-      color = "bg-orange-100 text-orange-800"
+      color = "orange"
       break;
     case "Ready for collection":
-      color ="bg-green-100 text-green-800"
+      color ="green"
       break;
     default:
       break;
