@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1",
+    "name": "Marissa Tomei",
+    "phone": "0400 000 000",
+    "email": "marissa@example.com",
+    "model": "Dell Latitude E7470",
+    "description": "Laptop is stuck in a boot loop",
+    "price": 120,
+    "status": "In progress",
+    "date": "2016-05-18T16:00:00Z"
+  },
+  {
+    "id": "2",
+    "name": "Jerry Seinfeld",
+    "phone": "0400 000 000",
+    "email": "jerry@example.com",
+    "model": "Custom desktop PC",
+    "description": "Desktop is overheating",
+    "price": 200,
+    "status": "Awaiting parts",
+    "date": "2016-05-18T16:00:00Z"
+  },
+  {
+    "id": "3",
+    "name": "George Costanza",
+    "phone": "0400 000 000",
+    "email": "george@example.com",
+    "model": "HP Probook 820 G2",
+    "description": "Laptop keyboard needs to be replaced",
+    "price": 250,
+    "status": "Ready for collection",
+    "date": "2016-05-18T16:00:00Z"
+  }
+]
