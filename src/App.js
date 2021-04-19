@@ -68,7 +68,7 @@ function App() {
       setPassword('')
       history.push('/')
     } catch (exception) {
-      setErrorMessage('wrong credentials')
+      setErrorMessage('Wrong credentials')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
@@ -109,7 +109,6 @@ function App() {
       setErrorMessage(
         `Job '${jobObject.title}' was already removed from server`
       )
-      console.log(error)
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
@@ -133,13 +132,13 @@ function App() {
   return (
     <Switch>
       <Route path="/login">
-        <Notification/>
         <LoginForm 
           email={email} 
           password={password} 
           setEmail={setEmail}
           setPassword={setPassword}
           handleLogin={handleLogin}
+          errorMessage={errorMessage}
         />
       </Route>
       <Route path="/jobs/:id">
@@ -151,9 +150,8 @@ function App() {
           secondaryButtonAction={editJob}
         >
           <Notification message={errorMessage}/>
-            {!editJobStatus && <Job job={job}/>}
-            
-            {editJobStatus && <JobFormEdit job={job} updateJob={updateJob} setEditJobStatus={setEditJobStatus}/>}
+          {!editJobStatus && <Job job={job}/>}  
+          {editJobStatus && <JobFormEdit job={job} updateJob={updateJob} setEditJobStatus={setEditJobStatus}/>}
         </Layout>
       </Route>
       <Route path="/">
