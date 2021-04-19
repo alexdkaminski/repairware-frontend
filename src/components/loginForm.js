@@ -1,9 +1,9 @@
 import React from 'react'
+import Notification from './notification'
 
-const LoginForm = ({ handleLogin, email, password, setEmail, setPassword }) => (
+const LoginForm = ({ handleLogin, email, password, setEmail, setPassword, errorMessage }) => (
   <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div className="sm:mx-auto sm:w-full sm:max-w-md">
-      <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg" alt="Workflow" />
       <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
         Sign in to your account
       </h2>
@@ -11,6 +11,7 @@ const LoginForm = ({ handleLogin, email, password, setEmail, setPassword }) => (
 
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <Notification message={errorMessage}/>
         <form onSubmit={handleLogin}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">
@@ -30,20 +31,20 @@ const LoginForm = ({ handleLogin, email, password, setEmail, setPassword }) => (
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-between">
+          {/* <div className="mt-6 flex items-center justify-between">
             <div className="flex items-center">
               <input id="remember_me" type="checkbox" className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
               <label htmlFor="remember_me" className="ml-2 block text-sm leading-5 text-gray-900">
                 Remember me
               </label>
-            </div>
+            </div> */}
 
             {/* <div className="text-sm leading-5">
               <a href="/" className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
                 Forgot your password?
               </a>
-            </div> */}
-          </div>
+            </div> 
+          </div>*/}
 
           <div className="mt-6">
             <span className="block w-full rounded-md shadow-sm">
