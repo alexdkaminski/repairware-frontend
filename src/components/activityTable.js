@@ -8,9 +8,6 @@ const Activity = ({ job }) => {
       <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-cool-gray-900">
         <div className="flex">
           <a href={`/jobs/${job.id}`} className="group inline-flex space-x-2 truncate text-sm leading-5">
-            <svg className="flex-shrink-0 h-5 w-5 text-cool-gray-400 group-hover:text-cool-gray-500 transition ease-in-out duration-150" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-            </svg>
             <p className="text-cool-gray-900 group-hover:text-cool-gray-900 transition ease-in-out font-medium duration-150">
               {job.name}
             </p>
@@ -36,6 +33,13 @@ const Activity = ({ job }) => {
 }
 
 const ActivityTable = ({ jobs }) => {
+  if (jobs.length === 0) {
+    return (
+      <>
+        <p>There are currently no jobs logged in the system.</p>
+      </>
+    )
+  }
   return (
     <div className="hidden sm:block">
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
